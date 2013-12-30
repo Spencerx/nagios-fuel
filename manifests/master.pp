@@ -164,7 +164,7 @@ $htpasswd_file     = $nagios::params::htpasswd_file,
   }
 
   cron { puppet-agent:
-    command => "puppet agent --tags=nagios",
+    command => "puppet agent --onetime --tags=nagios",
     user    => root,
     minute  => '*/10'
   }
