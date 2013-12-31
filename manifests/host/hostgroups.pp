@@ -6,7 +6,7 @@ define nagios::host::hostgroups() {
 
   notify{ "**** called hostgroups() ${name} tag deployment_${deployment_id} *****": }
 
-  @@nagios_hostgroup { "${deployment_id}_${name}":
+  @@nagios_hostgroup { "${deployment_id}_${::hostname}_${name}":
     hostgroup_name => $name,
     ensure         => present,
     alias          => $alias,
