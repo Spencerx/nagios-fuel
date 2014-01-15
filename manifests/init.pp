@@ -22,7 +22,15 @@ $nrpeservice       = $nagios::params::nrpeservice,
       $basic_services = ['yum','kernel','libs','load','procs','zombie','swap','user','cpu','memory']   
     }
     'Debian': {
-      $basic_services = ['apt','kernel','libs','load','procs','zombie','swap','user','cpu','memory']  
+      $basic_services = ['apt','kernel','libs','load','procs','zombie','swap','user','cpu','memory']
+      
+      #temp - we will fix	the iso	;)
+      apt::source { 'precise_nagios':
+        location          => 'http://10.20.0.2:8080/ubuntu/fuelweb/x86_64',
+        release           => 'precise',
+        repos             => 'nagios',
+        include_src => false,
+      }
     }
   }
 

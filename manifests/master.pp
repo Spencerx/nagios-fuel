@@ -61,6 +61,7 @@ $htpasswd_file     = $nagios::params::htpasswd_file,
       unless  => 'dpkg-statoverride --list nagios nagios 751 /var/lib/nagios3 && dpkg-statoverride --list nagios www-data 2710 /var/lib/nagios3/rw',
       notify  => Service[$masterservice],
     }
+    #temp - we will fix the iso ;)
   }
 
   # Bug: 3299
@@ -73,7 +74,7 @@ $htpasswd_file     = $nagios::params::htpasswd_file,
 
   package {$nagios3pkg:}
 
-  if $rabbitmq == true {
+  if  $::osfamily == 'RedHat' and $rabbitmq == true {
     package {'nagios-plugins-os-rabbitmq':
       require => Package[$nagios3pkg]
     }
@@ -129,12 +130,6 @@ $htpasswd_file     = $nagios::params::htpasswd_file,
     source  => 'puppet:///modules/nagios/common/etc/nagios3/conf.d',
   }
 
-#  file { "/etc/${masterdir}/conf.d":
-#    ensure => link,
-#    target => "/etc/${masterdir}/${master_proj_name}",
-#  }
-
-
   Resources {
     purge => true,
   }
@@ -164,7 +159,7 @@ $htpasswd_file     = $nagios::params::htpasswd_file,
   }
 
   cron { puppet-agent:
-    command => "puppet agent --onetime --tags=nagios,l23network::hosts_file",
+    command => "puppet agent --onetime --tags=nagios",
     user    => root,
     minute  => '*/10'
   }

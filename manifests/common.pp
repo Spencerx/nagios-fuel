@@ -48,7 +48,7 @@ class nagios::common inherits nagios {
 
   define add_interface($interface_count = size($a_interfaces), $current = 0) {
     if $current == $interface_count -1 {
-      if $a_interfaces[$current] != ovs_system nagios::common::run_interface { $a_interfaces[$current]:
+      nagios::common::run_interface { $a_interfaces[$current]:
         interface => $a_interfaces[$current],
       }
     } else {

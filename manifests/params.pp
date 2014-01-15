@@ -85,7 +85,7 @@ class nagios::params {
     'Debian': {
       $nagios3pkg = [
         'nagios3',
- #       'nagios-nrpe-plugin'
+        'nagios-nrpe-plugin'
  ]
       $nrpepkg = [
         'binutils',
